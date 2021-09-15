@@ -7,6 +7,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlparse
+import subprocess
 
 import requests
 import yaml
@@ -17,6 +18,7 @@ script_start = datetime.now()
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", None)
 
 readme = []
+screenshots = ""
 data = []
 
 
@@ -50,54 +52,83 @@ for datafile in sorted(Path("_data").glob("*.yml")):
         response = requests.get(uri, headers=headers, timeout=5)
         return response.json() if json else response
 
+    def imagetag(filename, alt):
+        return f"<img src='{filename}' alt='{alt}' width='200' />"
+
+
+    def capture_screenshot(url, filename, folder="screenshots"):
+        subprocess.run(
+            f"pageres {url} 800x600 --overwrite --crop --filename='{filename}'",
+            cwd=folder,
+            shell=True,
+            capture_output=True,
+        )
+        return imagetag(f"{folder}/{filename}.png", alt=url)
+
     with open(str(datafile)) as f:
         info = yaml.load(f, Loader=yaml.SafeLoader)
-        year = {
-            "year": datafile.stem,
-            "url": "",
-            "status": "",
-            "pyvideo": "",
-            "repo": "",
-        }
+    
+    yearnum = datafile.stem
+    year = {
+        "year": yearnum,
+        "url": "",
+        "status": "",
+        "pyvideo": "",
+        "repo": "",
+    }
+    screenshots += f"### {yearnum}\n"
 
-        if valid("canonical_url"):
-            url = info["canonical_url"]
-            year["status"] = str(get_status_code(url))
-            year["url"] = f"[{url}]({url})"
+    if valid("canonical_url"):
+        url = info["canonical_url"]
+        year["status"] = str(get_status_code(url))
+        year["url"] = f"[{url}]({url})"
 
-        if valid("wayback"):
-            year["status"] += f" ([Wayback]({info['wayback']}))"
+    if valid("wayback"):
+        year["status"] += f" ([Wayback]({info['wayback']}))"
 
-        if "repo" in info.keys() and info["repo"] is not None:
-            repo = info["repo"]
-            year["repo"] = f"[{repo}](https://github.com/{repo})"
-            response = get_url(f"https://api.github.com/repos/{repo}", json=True)
-            if "homepage" in response.keys():
-                homepage = response['homepage']
-                year["repo"] += f" ([url]({homepage}))"
-                if "glasnt" in homepage: 
-                    year["repo"] += " 🚧"
-                if urlparse(homepage).hostname == info["canonical_url"]:
-                    year["status"] += " ✅"
+        screenshots += capture_screenshot(info['wayback'], f"{yearnum}_wayback")
 
-        if valid("pyvideo"):
-            pyvideo = info["pyvideo"]
-            response = get_url(pyvideo)
-            talk_count = response.text.count('class="entry-title"')
-            year["pyvideo"] = f"[{talk_count} entries]({info['pyvideo']})"
+    if "repo" in info.keys() and info["repo"] is not None:
+        repo = info["repo"]
+        year["repo"] = f"[{repo}](https://github.com/{repo})"
+        response = get_url(f"https://api.github.com/repos/{repo}", json=True)
+        if "homepage" in response.keys():
+            homepage = response["homepage"]
+            year["repo"] += f" ([url]({homepage}))"
+            if "glasnt" in homepage:
+                year["repo"] += " 🚧"
+            if urlparse(homepage).hostname == info["canonical_url"]:
+                year["status"] += " ✅"
+                screenshots += "None required."
+            else: 
+                screenshots += capture_screenshot(homepage, f"{yearnum}_repo")
+    else:
+        screenshots += imagetag("screenshots/placeholder.png", alt="No image")
 
-        if valid("youtube") and type(info["youtube"]) == list:
-            counter = 1
-            year["youtube"] = []
-            for item in info["youtube"]:
-                if item is not None:
-                    year["youtube"].append(f"[{counter}]({item})")
-                    counter += 1
-            year["youtube"] = ", ".join(year["youtube"])
+    if valid("pyvideo"):
+        pyvideo = info["pyvideo"]
+        response = get_url(pyvideo)
+        talk_count = response.text.count('class="entry-title"')
+        year["pyvideo"] = f"[{talk_count} entries]({info['pyvideo']})"
 
-        data.append(year)
+    if valid("youtube") and type(info["youtube"]) == list:
+        counter = 1
+        year["youtube"] = []
+        for item in info["youtube"]:
+            if item is not None:
+                year["youtube"].append(f"[{counter}]({item})")
+                counter += 1
+        year["youtube"] = ", ".join(year["youtube"])
+
+    data.append(year)
+    screenshots += f"\n\n"
+
 
 readme.append(Tomark.table(data))
+
+# Append screenshots
+readme.append("## Screenshots")
+readme.append(screenshots)
 
 # Append Footer
 with open("_templates/footer.md") as f:

@@ -12,3 +12,14 @@ You can then customise this output in a few ways. What follows is some WIP notes
    * in VS Code with `command shift h` (or the magnifying glass icon on the left)
  * literal html may presume a subdomain, not a subfolder, so to save you re-writing many things use a custom domain on GitHub pages
  * create a `404.md` to mark that something was actually a 404
+
+
+## Screenshots
+
+There are many ways to do this, but this way is taken from the DjangoCon archive project: 
+
+```
+npm install -g pageres-cli
+```
+
+Screenshots are updated in `generate.py`
