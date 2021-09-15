@@ -1,3 +1,3 @@
 ---
 
-This file was generated. See `generate.py`.
+This file was generated. See `docs.md`.
