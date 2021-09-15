@@ -56,7 +56,6 @@ for datafile in sorted(Path("_data").glob("*.yml")):
             "year": datafile.stem,
             "url": "",
             "status": "",
-            "wayback": "",
             "pyvideo": "",
             "repo": "",
         }
