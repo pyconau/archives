@@ -131,6 +131,7 @@ readme.append(Tomark.table(data))
 
 # Append screenshots
 readme.append("## Screenshots")
+readme.append("Screenshots are in the form: WayBack Machine screenshot, GitHub Pages screenshot.")
 readme.append(screenshots)
 
 # Append Footer

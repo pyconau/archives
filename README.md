@@ -27,6 +27,7 @@ The goal of this project is to archive the past PyCon AU websites.
 | 2021 | [2021.pycon.org.au](2021.pycon.org.au) | 200 ✅ | ❓ | [pyconau/2021-website](https://github.com/pyconau/2021-website) ([url](https://2021.pycon.org.au)) | [1](https://www.youtube.com/playlist?list=PLs4CJRBY5F1LKN2ISCse415LW5FZEjDX2) |
 
 ## Screenshots
+Screenshots are in the form: WayBack Machine screenshot, GitHub Pages screenshot.
 ### 2010
 <img src='screenshots/2010_wayback.png' alt='https://web.archive.org/web/20160406095737/http://pycon-au.org/2010/' width='400' /><img src='screenshots/2010_repo.png' alt='https://pyconau.github.io/2010-archive/' width='400' />
 
