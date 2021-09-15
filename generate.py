@@ -16,6 +16,7 @@ from tomark import Tomark
 script_start = datetime.now()
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", None)
+SCREENSHOTS = os.environ.get("GENERATE_SCREENSHOTS", None)
 
 readme = []
 screenshots = ""
@@ -53,16 +54,17 @@ for datafile in sorted(Path("_data").glob("*.yml")):
         return response.json() if json else response
 
     def imagetag(filename, alt):
-        return f"<img src='{filename}' alt='{alt}' width='200' />"
+        return f"<img src='{filename}' alt='{alt}' width='400' />"
 
 
     def capture_screenshot(url, filename, folder="screenshots"):
-        subprocess.run(
-            f"pageres {url} 800x600 --overwrite --crop --filename='{filename}'",
-            cwd=folder,
-            shell=True,
-            capture_output=True,
-        )
+        if SCREENSHOTS:
+            subprocess.run(
+                f"pageres {url} 800x600 --overwrite --crop --filename='{filename}'",
+                cwd=folder,
+                shell=True,
+                capture_output=True,
+            )
         return imagetag(f"{folder}/{filename}.png", alt=url)
 
     with open(str(datafile)) as f:
@@ -73,8 +75,9 @@ for datafile in sorted(Path("_data").glob("*.yml")):
         "year": yearnum,
         "url": "",
         "status": "",
-        "pyvideo": "",
-        "repo": "",
+        "pyvideo": "❓",
+        "repo": "❓",
+        "youtube": "❓"
     }
     screenshots += f"### {yearnum}\n"
 
