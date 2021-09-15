@@ -73,7 +73,10 @@ for datafile in sorted(Path("_data").glob("*.yml")):
             year["repo"] = f"[{repo}](https://github.com/{repo})"
             response = get_url(f"https://api.github.com/repos/{repo}", json=True)
             if "homepage" in response.keys():
-                year["repo"] += f" ([url]({response['homepage']}))"
+                homepage = response['homepage']
+                year["repo"] += f" ([url]({homepage}))"
+                if "glasnt" in homepage: 
+                    year["repo"] += "🚧"
 
         if valid("pyvideo"):
             pyvideo = info["pyvideo"]
