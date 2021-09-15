@@ -76,7 +76,9 @@ for datafile in sorted(Path("_data").glob("*.yml")):
                 homepage = response['homepage']
                 year["repo"] += f" ([url]({homepage}))"
                 if "glasnt" in homepage: 
-                    year["repo"] += "🚧"
+                    year["repo"] += " 🚧"
+                if urlparse(homepage).hostname == info["canonical_url"]:
+                    year["status"] += " ✅"
 
         if valid("pyvideo"):
             pyvideo = info["pyvideo"]
