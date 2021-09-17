@@ -1,12 +1,15 @@
 canonical_url: 2014.pycon-au.org
-wayback: https://web.archive.org/web/20150324055746/http://2014.pycon-au.org/
-repo: 
-youtube: 
- - https://www.youtube.com/playlist?list=PLs4CJRBY5F1Jm7H1dlesRvEgr-28QGXpR
- - https://www.youtube.com/playlist?list=PLs4CJRBY5F1JQV44fKjRwjnh3CSTyJvOH
- - https://www.youtube.com/playlist?list=PLs4CJRBY5F1Kh1MjzKODWS55D9NAIYT44
- - https://www.youtube.com/playlist?list=PLs4CJRBY5F1KiJfxHRfJ3APQG7YqQbM3s
- - https://www.youtube.com/playlist?list=PLs4CJRBY5F1IA1dS8EgK7SzN54dzm-0QB
-
+canonical_url_status: Timeout
 pyvideo: https://pyvideo.org/events/pycon-au-2014.html
- 
+pyvideo_count: 46
+repo_homepage_screenshot: screenshots/placeholder.png
+repo_homepage_status: "\u2753"
+wayback: https://web.archive.org/web/20150324055746/http://2014.pycon-au.org/
+wayback_screenshot: screenshots/2014_wayback.png
+yearnum: '2014'
+youtube:
+- https://www.youtube.com/playlist?list=PLs4CJRBY5F1Jm7H1dlesRvEgr-28QGXpR
+- https://www.youtube.com/playlist?list=PLs4CJRBY5F1JQV44fKjRwjnh3CSTyJvOH
+- https://www.youtube.com/playlist?list=PLs4CJRBY5F1Kh1MjzKODWS55D9NAIYT44
+- https://www.youtube.com/playlist?list=PLs4CJRBY5F1KiJfxHRfJ3APQG7YqQbM3s
+- https://www.youtube.com/playlist?list=PLs4CJRBY5F1IA1dS8EgK7SzN54dzm-0QB

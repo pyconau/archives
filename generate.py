@@ -13,133 +13,208 @@ import requests
 import yaml
 from tomark import Tomark
 
-script_start = datetime.now()
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", None)
 SCREENSHOTS = os.environ.get("GENERATE_SCREENSHOTS", None)
+
+UNDER_CONSTRUCTION = "🚧"
+OKAY = "✅"
+INFO_MISSING = "❓"
+SCREENSHOT_MISSING = "screenshots/placeholder.png"
 
 readme = []
 screenshots = ""
 data = []
 
 
-# Append Header
-with open("_templates/header.md") as f:
-    readme += f.readlines()
+def valid(s, d={}):
+    return True if s in d.keys() and d[s] is not None else False
 
-# Process Data
-for datafile in sorted(Path("_data").glob("*.yml")):
 
-    def valid(s):
-        return True if s in info.keys() and info[s] is not None else False
-
-    def get_status_code(uri):
+def get_status_code(uri):
+    try:
+        response = get_url(f"https://{uri}")
+    except requests.exceptions.ConnectTimeout:
+        return "Timeout"
+    except requests.exceptions.SSLError:
         try:
-            response = get_url(f"https://{uri}")
-        except requests.exceptions.ConnectTimeout:
-            return "Timeout"
+            response = get_url(f"http://{uri}")
+            if "default web page for this server" in response.text:
+                return "Invalid config"
         except requests.exceptions.SSLError:
-            try:
-                response = get_url(f"http://{uri}")
-                if "default web page for this server" in response.text:
-                    return "Invalid config"
-            except requests.exceptions.SSLError:
-                return "SSL Error"
+            return "SSL Error"
 
-        return response.status_code
-
-    def get_url(uri, json=False):
-        headers = {"Authorization": f"token {GITHUB_TOKEN}"}
-        response = requests.get(uri, headers=headers, timeout=5)
-        return response.json() if json else response
-
-    def imagetag(filename, alt):
-        return f"<img src='{filename}' alt='{alt}' width='400' />"
+    return response.status_code
 
 
-    def capture_screenshot(url, filename, folder="screenshots"):
-        if SCREENSHOTS:
-            subprocess.run(
-                f"pageres {url} 800x600 --overwrite --crop --filename='{filename}'",
-                cwd=folder,
-                shell=True,
-                capture_output=True,
+def get_url(uri, json=False):
+    headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+    response = requests.get(uri, headers=headers, timeout=5)
+    return response.json() if json else response
+
+
+def imagetag(filename, alt):
+    return f"<img src='{filename}' alt='{alt}' width='400' />"
+
+
+def capture_screenshot(url, filename, folder="screenshots", refresh=False):
+    if refresh:
+        subprocess.run(
+            f"pageres {url} 800x600 --overwrite --crop --filename='{filename}'",
+            cwd=folder,
+            shell=True,
+            capture_output=True,
+        )
+    return f"{folder}/{filename}.png"
+
+
+def refresh(refresh_screenshots=False):
+
+    # Process Data
+    for datafile in sorted(Path("_data").glob("*.yml")):
+
+        with open(str(datafile)) as f:
+            info = yaml.load(f, Loader=yaml.SafeLoader)
+
+        year = datafile.stem
+        info["yearnum"] = year
+
+        if valid("canonical_url", d=info):
+            url = info["canonical_url"]
+            info["canonical_url_status"] = str(get_status_code(url))
+
+        if valid("wayback", d=info):
+            info["wayback_screenshot"] = capture_screenshot(
+                info["wayback"], f"{year}_wayback", refresh=refresh_screenshots
             )
-        return imagetag(f"{folder}/{filename}.png", alt=url)
+        else:
+            info["wayback_screenshot"] = SCREENSHOT_MISSING
 
-    with open(str(datafile)) as f:
-        info = yaml.load(f, Loader=yaml.SafeLoader)
+        info["repo_homepage_status"] = INFO_MISSING
+        info["repo_homepage_screenshot"] = SCREENSHOT_MISSING
+        if "repo" in info.keys() and info["repo"] is not None:
+            repo = info["repo"]
+            response = get_url(f"https://api.github.com/repos/{repo}", json=True)
+            if "homepage" in response.keys():
+                homepage = response["homepage"]
+                info["repo_homepage"] = homepage
+                if "glasnt" in homepage:
+                    info["repo_homepage_status"] = UNDER_CONSTRUCTION
+                if urlparse(homepage).hostname == info["canonical_url"]:
+                    info["repo_homepage_status"] = OKAY
+                info["repo_homepage_screenshot"] = capture_screenshot(
+                    homepage, f"{year}_repo", refresh=refresh_screenshots
+                )
+
+        if valid("pyvideo", d=info):
+            pyvideo = info["pyvideo"]
+            response = get_url(pyvideo)
+            talk_count = response.text.count('class="entry-title"')
+            info["pyvideo_count"] = talk_count
+
+        if valid("youtube", d=info) and type(info["youtube"]) == list:
+            # todo get playlist counts
+            pass
+
+        with open(str(datafile), "w") as f:
+            yaml.dump(info, f)
+
+
+def generate_readme():
+    readme = []
+    # Append Header
+    with open("_templates/header.md") as f:
+        readme += f.readlines()
+
+    data = []
+    for datafile in sorted(Path("_data").glob("*.yml")):
+        with open(str(datafile)) as f:
+            print(datafile)
+            info = yaml.load(f, Loader=yaml.SafeLoader)
+            year = {
+                "year": info["yearnum"],
+                "url": info["canonical_url"],
+                "status": info["canonical_url_status"],
+                "wayback": f"[wayback]({info['wayback']})",
+            }
+            if valid("repo", d=info):
+                year[
+                    "repo"
+                ] = f"[{info['repo']}](https://github.com/{info['repo']}) ([url]({info['repo_homepage']})) {info['repo_homepage_status']} "
+            else:
+                year["repo"] = INFO_MISSING
+
+            if valid("youtube", d=info):
+                counter = 1
+                year["youtube"] = []
+                for item in info["youtube"]:
+                    if item is not None:
+                        year["youtube"].append(f"[{counter}]({item})")
+                        counter += 1
+                year["youtube"] = ", ".join(year["youtube"])
+            else:
+                year["youtube"] = INFO_MISSING
+
+            if valid("pyvideo", d=info):
+                year["pyvideo"] = f"[{info['pyvideo_count']} entries]({info['pyvideo']})"
+            else:
+                year["pyvideo"] = INFO_MISSING
+
+            data.append(year)
+
+    readme.append(Tomark.table(data))
+
+    # Append screenshots
+    readme.append("## Screenshots")
+    readme.append(
+        "Screenshots are in the form: WayBack Machine screenshot, GitHub Pages screenshot."
+    )
     
-    yearnum = datafile.stem
-    year = {
-        "year": yearnum,
-        "url": "",
-        "status": "",
-        "pyvideo": "❓",
-        "repo": "❓",
-        "youtube": "❓"
-    }
-    screenshots += f"### {yearnum}\n"
+    for datafile in sorted(Path("_data").glob("*.yml")):
+        with open(str(datafile)) as f:
+            year = yaml.load(f, Loader=yaml.SafeLoader)
+            print(year["yearnum"])
+            readme.append(f"### {year['yearnum']}")
+            if year["wayback"]:
+                readme.append(imagetag(year["wayback_screenshot"], alt=year["wayback"]))
 
-    if valid("canonical_url"):
-        url = info["canonical_url"]
-        year["status"] = str(get_status_code(url))
-        year["url"] = f"[{url}]({url})"
+            readme.append(imagetag(year["repo_homepage_screenshot"], alt=year.get("repo", INFO_MISSING)))
+            readme.append("\n")
 
-    if valid("wayback"):
-        year["status"] += f" ([Wayback]({info['wayback']}))"
+    # Append Footer
+    with open("_templates/footer.md") as f:
+        readme += f.readlines()
 
-        screenshots += capture_screenshot(info['wayback'], f"{yearnum}_wayback")
-
-    if "repo" in info.keys() and info["repo"] is not None:
-        repo = info["repo"]
-        year["repo"] = f"[{repo}](https://github.com/{repo})"
-        response = get_url(f"https://api.github.com/repos/{repo}", json=True)
-        if "homepage" in response.keys():
-            homepage = response["homepage"]
-            year["repo"] += f" ([url]({homepage}))"
-            if "glasnt" in homepage:
-                year["repo"] += " 🚧"
-            if urlparse(homepage).hostname == info["canonical_url"]:
-                year["status"] += " ✅"
-                screenshots += "None required."
-            else: 
-                screenshots += capture_screenshot(homepage, f"{yearnum}_repo")
-    else:
-        screenshots += imagetag("screenshots/placeholder.png", alt="No image")
-
-    if valid("pyvideo"):
-        pyvideo = info["pyvideo"]
-        response = get_url(pyvideo)
-        talk_count = response.text.count('class="entry-title"')
-        year["pyvideo"] = f"[{talk_count} entries]({info['pyvideo']})"
-
-    if valid("youtube") and type(info["youtube"]) == list:
-        counter = 1
-        year["youtube"] = []
-        for item in info["youtube"]:
-            if item is not None:
-                year["youtube"].append(f"[{counter}]({item})")
-                counter += 1
-        year["youtube"] = ", ".join(year["youtube"])
-
-    data.append(year)
-    screenshots += f"\n\n"
+    # Write to Disk
+    with open("README.md", "w") as f:
+        f.write("\n".join(readme))
 
 
-readme.append(Tomark.table(data))
+import click
 
-# Append screenshots
-readme.append("## Screenshots")
-readme.append("Screenshots are in the form: WayBack Machine screenshot, GitHub Pages screenshot.")
-readme.append(screenshots)
 
-# Append Footer
-with open("_templates/footer.md") as f:
-    readme += f.readlines()
+@click.command()
+@click.option(
+    "--refresh-data",
+    type=bool,
+    count=True,
+    default=False,
+    help="regenerate dynamic data",
+)
+@click.option(
+    "--refresh-screenshots",
+    type=bool,
+    count=True,
+    default=False,
+    help="regenerate dynamic data",
+)
+def cli(refresh_data, refresh_screenshots):
+    script_start = datetime.now()
+    if refresh_data:
+        refresh(refresh_screenshots)
+    generate_readme()
+    print(f"Generated README.md in {datetime.now() - script_start}")
 
-# Write to Disk
-with open("README.md", "w") as f:
-    f.write("\n".join(readme))
 
-print(f"Generated README.md in {datetime.now() - script_start}")
+if __name__ == "__main__":
+    cli()

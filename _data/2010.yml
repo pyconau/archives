@@ -1,4 +1,11 @@
 canonical_url: pycon-au.org/2010
-wayback: https://web.archive.org/web/20160406095737/http://pycon-au.org/2010/
-repo: pyconau/2010-archive
+canonical_url_status: '404'
 pyvideo: https://pyvideo.org/events/pycon-au-2010.html
+pyvideo_count: 30
+repo: pyconau/2010-archive
+repo_homepage: https://pyconau.github.io/2010-archive/
+repo_homepage_screenshot: screenshots/2010_repo.png
+repo_homepage_status: "\u2753"
+wayback: https://web.archive.org/web/20160406095737/http://pycon-au.org/2010/
+wayback_screenshot: screenshots/2010_wayback.png
+yearnum: '2010'

@@ -1,7 +1,14 @@
 canonical_url: pycon-au.org/2011
-wayback: http://web.archive.org/web/20111106005504/http://pycon-au.org/2011/about/
-repo: pyconau/2011-archive
-youtube: 
-  - https://www.youtube.com/playlist?list=PLF92F453065088216
-  - https://www.youtube.com/playlist?list=PL8C2EF847D694C589
+canonical_url_status: '404'
 pyvideo: https://pyvideo.org/events/pycon-au-2011.html
+pyvideo_count: 30
+repo: pyconau/2011-archive
+repo_homepage: https://pyconau.github.io/2011-archive/
+repo_homepage_screenshot: screenshots/2011_repo.png
+repo_homepage_status: "\u2753"
+wayback: http://web.archive.org/web/20111106005504/http://pycon-au.org/2011/about/
+wayback_screenshot: screenshots/2011_wayback.png
+yearnum: '2011'
+youtube:
+- https://www.youtube.com/playlist?list=PLF92F453065088216
+- https://www.youtube.com/playlist?list=PL8C2EF847D694C589

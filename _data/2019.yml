@@ -1,6 +1,13 @@
 canonical_url: 2019.pycon-au.org
-repo: pyconau/2019.pycon-au.org
-youtube: 
- - https://www.youtube.com/playlist?list=PLs4CJRBY5F1LKqauI3V4E_xflt6Gow611
+canonical_url_status: '200'
 pyvideo: https://pyvideo.org/events/pycon-au-2019.html
- 
+pyvideo_count: 74
+repo: pyconau/2019.pycon-au.org
+repo_homepage: https://2019.pycon-au.org
+repo_homepage_screenshot: screenshots/2019_repo.png
+repo_homepage_status: "\u2705"
+wayback: https://web.archive.org/web/20210917222732/https://2019.pycon-au.org/
+wayback_screenshot: screenshots/2019_wayback.png
+yearnum: '2019'
+youtube:
+- https://www.youtube.com/playlist?list=PLs4CJRBY5F1LKqauI3V4E_xflt6Gow611
