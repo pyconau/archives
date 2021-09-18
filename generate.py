@@ -129,7 +129,6 @@ def generate_readme():
     data = []
     for datafile in sorted(Path("_data").glob("*.yml")):
         with open(str(datafile)) as f:
-            print(datafile)
             info = yaml.load(f, Loader=yaml.SafeLoader)
             year = {
                 "year": info["yearnum"],
@@ -171,15 +170,15 @@ def generate_readme():
     )
     
     for datafile in sorted(Path("_data").glob("*.yml")):
+        screenshots = ""
         with open(str(datafile)) as f:
             year = yaml.load(f, Loader=yaml.SafeLoader)
-            print(year["yearnum"])
-            readme.append(f"### {year['yearnum']}")
+            readme.append(f"\n### {year['yearnum']}")
             if year["wayback"]:
-                readme.append(imagetag(year["wayback_screenshot"], alt=year["wayback"]))
+                screenshots += imagetag(year["wayback_screenshot"], alt=year["wayback"])
 
-            readme.append(imagetag(year["repo_homepage_screenshot"], alt=year.get("repo", INFO_MISSING)))
-            readme.append("\n")
+            screenshots+= imagetag(year["repo_homepage_screenshot"], alt=year.get("repo", INFO_MISSING))
+        readme.append(screenshots)
 
     # Append Footer
     with open("_templates/footer.md") as f:

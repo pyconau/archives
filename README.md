@@ -28,66 +28,42 @@ The goal of this project is to archive the past PyCon AU websites.
 
 ## Screenshots
 Screenshots are in the form: WayBack Machine screenshot, GitHub Pages screenshot.
-### 2010
-<img src='screenshots/2010_wayback.png' alt='https://web.archive.org/web/20160406095737/http://pycon-au.org/2010/' width='400' />
-<img src='screenshots/2010_repo.png' alt='pyconau/2010-archive' width='400' />
 
+### 2010
+<img src='screenshots/2010_wayback.png' alt='https://web.archive.org/web/20160406095737/http://pycon-au.org/2010/' width='400' /><img src='screenshots/2010_repo.png' alt='pyconau/2010-archive' width='400' />
 
 ### 2011
-<img src='screenshots/2011_wayback.png' alt='http://web.archive.org/web/20111106005504/http://pycon-au.org/2011/about/' width='400' />
-<img src='screenshots/2011_repo.png' alt='pyconau/2011-archive' width='400' />
-
+<img src='screenshots/2011_wayback.png' alt='http://web.archive.org/web/20111106005504/http://pycon-au.org/2011/about/' width='400' /><img src='screenshots/2011_repo.png' alt='pyconau/2011-archive' width='400' />
 
 ### 2012
-<img src='screenshots/2012_wayback.png' alt='https://web.archive.org/web/20130317004629/http://2012.pycon-au.org/' width='400' />
-<img src='screenshots/2012_repo.png' alt='pyconau/2012-archive' width='400' />
-
+<img src='screenshots/2012_wayback.png' alt='https://web.archive.org/web/20130317004629/http://2012.pycon-au.org/' width='400' /><img src='screenshots/2012_repo.png' alt='pyconau/2012-archive' width='400' />
 
 ### 2013
-<img src='screenshots/2013_wayback.png' alt='https://web.archive.org/web/20150307051807/http://2013.pycon-au.org/' width='400' />
-<img src='screenshots/2013_repo.png' alt='pyconau/2013-archive' width='400' />
-
+<img src='screenshots/2013_wayback.png' alt='https://web.archive.org/web/20150307051807/http://2013.pycon-au.org/' width='400' /><img src='screenshots/2013_repo.png' alt='pyconau/2013-archive' width='400' />
 
 ### 2014
-<img src='screenshots/2014_wayback.png' alt='https://web.archive.org/web/20150324055746/http://2014.pycon-au.org/' width='400' />
-<img src='screenshots/placeholder.png' alt='❓' width='400' />
-
+<img src='screenshots/2014_wayback.png' alt='https://web.archive.org/web/20150324055746/http://2014.pycon-au.org/' width='400' /><img src='screenshots/placeholder.png' alt='❓' width='400' />
 
 ### 2015
-<img src='screenshots/2015_wayback.png' alt='https://web.archive.org/web/20160322142419/http://2015.pycon-au.org/' width='400' />
-<img src='screenshots/placeholder.png' alt='❓' width='400' />
-
+<img src='screenshots/2015_wayback.png' alt='https://web.archive.org/web/20160322142419/http://2015.pycon-au.org/' width='400' /><img src='screenshots/placeholder.png' alt='❓' width='400' />
 
 ### 2016
-<img src='screenshots/2016_wayback.png' alt='https://web.archive.org/web/20200619053145/https://2016.pycon-au.org/' width='400' />
-<img src='screenshots/2016_repo.png' alt='pyconau/2016-archive' width='400' />
-
+<img src='screenshots/2016_wayback.png' alt='https://web.archive.org/web/20200619053145/https://2016.pycon-au.org/' width='400' /><img src='screenshots/2016_repo.png' alt='pyconau/2016-archive' width='400' />
 
 ### 2017
-<img src='screenshots/2017_wayback.png' alt='https://web.archive.org/web/20210302051807/https://2017.pycon-au.org/' width='400' />
-<img src='screenshots/2017_repo.png' alt='pyconau/2017-archive' width='400' />
-
+<img src='screenshots/2017_wayback.png' alt='https://web.archive.org/web/20210302051807/https://2017.pycon-au.org/' width='400' /><img src='screenshots/2017_repo.png' alt='pyconau/2017-archive' width='400' />
 
 ### 2018
-<img src='screenshots/2018_wayback.png' alt='http://web.archive.org/web/20210218221524/https://2018.pycon-au.org/' width='400' />
-<img src='screenshots/2018_repo.png' alt='pyconau/2018.pycon-au.org' width='400' />
-
+<img src='screenshots/2018_wayback.png' alt='http://web.archive.org/web/20210218221524/https://2018.pycon-au.org/' width='400' /><img src='screenshots/2018_repo.png' alt='pyconau/2018.pycon-au.org' width='400' />
 
 ### 2019
-<img src='screenshots/2019_wayback.png' alt='https://web.archive.org/web/20210917222732/https://2019.pycon-au.org/' width='400' />
-<img src='screenshots/2019_repo.png' alt='pyconau/2019.pycon-au.org' width='400' />
-
+<img src='screenshots/2019_wayback.png' alt='https://web.archive.org/web/20210917222732/https://2019.pycon-au.org/' width='400' /><img src='screenshots/2019_repo.png' alt='pyconau/2019.pycon-au.org' width='400' />
 
 ### 2020
-<img src='screenshots/2020_wayback.png' alt='https://web.archive.org/web/20210917223013/https://2020.pycon.org.au/' width='400' />
-<img src='screenshots/2020_repo.png' alt='pyconau/2020-website' width='400' />
-
+<img src='screenshots/2020_wayback.png' alt='https://web.archive.org/web/20210917223013/https://2020.pycon.org.au/' width='400' /><img src='screenshots/2020_repo.png' alt='pyconau/2020-website' width='400' />
 
 ### 2021
-<img src='screenshots/2021_wayback.png' alt='https://web.archive.org/web/20210917223112/https://2021.pycon.org.au/' width='400' />
-<img src='screenshots/2021_repo.png' alt='pyconau/2021-website' width='400' />
-
-
+<img src='screenshots/2021_wayback.png' alt='https://web.archive.org/web/20210917223112/https://2021.pycon.org.au/' width='400' /><img src='screenshots/2021_repo.png' alt='pyconau/2021-website' width='400' />
 ---
 
 
