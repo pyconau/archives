@@ -9,3 +9,4 @@ wayback_screenshot: screenshots/2021_wayback.png
 yearnum: '2021'
 youtube:
 - https://www.youtube.com/playlist?list=PLs4CJRBY5F1LKN2ISCse415LW5FZEjDX2
+notes: Consider removing netlify and using pure github pages for hosting.
