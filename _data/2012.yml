@@ -3,9 +3,9 @@ canonical_url_status: Timeout
 pyvideo: https://pyvideo.org/events/pycon-au-2012.html
 pyvideo_count: 30
 repo: pyconau/2012-archive
-repo_homepage: https://pyconau.github.io/2012-archive/
+repo_homepage: https://pyconau-2012.glasnt.com
 repo_homepage_screenshot: screenshots/2012_repo.png
-repo_homepage_status: "\u2753"
+repo_homepage_status: "\U0001F6A7"
 wayback: https://web.archive.org/web/20130317004629/http://2012.pycon-au.org/
 wayback_screenshot: screenshots/2012_wayback.png
 yearnum: '2012'

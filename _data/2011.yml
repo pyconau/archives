@@ -3,9 +3,9 @@ canonical_url_status: '404'
 pyvideo: https://pyvideo.org/events/pycon-au-2011.html
 pyvideo_count: 30
 repo: pyconau/2011-archive
-repo_homepage: https://pyconau.github.io/2011-archive/
+repo_homepage: https://pyconau-2011.glasnt.com
 repo_homepage_screenshot: screenshots/2011_repo.png
-repo_homepage_status: "\u2753"
+repo_homepage_status: "\U0001F6A7"
 wayback: http://web.archive.org/web/20111106005504/http://pycon-au.org/2011/about/
 wayback_screenshot: screenshots/2011_wayback.png
 yearnum: '2011'
