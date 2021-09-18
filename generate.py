@@ -154,7 +154,7 @@ def generate_readme():
             else:
                 year["youtube"] = INFO_MISSING
 
-            if valid("pyvideo", d=info):
+            if valid("pyvideo", d=info) and valid("pyvideo_count", d=info):
                 year["pyvideo"] = f"[{info['pyvideo_count']} entries]({info['pyvideo']})"
             else:
                 year["pyvideo"] = INFO_MISSING
