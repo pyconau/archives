@@ -136,6 +136,7 @@ def generate_readme():
                 "url": info["canonical_url"],
                 "status": info["canonical_url_status"],
                 "wayback": f"[wayback]({info['wayback']})",
+                "webarchive": INFO_MISSING,
             }
             if valid("repo", d=info):
                 year[
@@ -159,9 +160,13 @@ def generate_readme():
                 year["pyvideo"] = f"[{info['pyvideo_count']} entries]({info['pyvideo']})"
             else:
                 year["pyvideo"] = INFO_MISSING
+            if valid("webarchive", d=info):
+                year["webarchive"] = f"[{info['webarchive_count']} entries]({info['webarchive']})"
+
 
             if valid("notes", d=info):
                notes.append(f"* {info['yearnum']}: {info['notes']}") 
+
             data.append(year)
 
     readme.append(Tomark.table(data))
