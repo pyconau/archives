@@ -1,8 +1,8 @@
 canonical_url: 2017.pycon-au.org
 canonical_url_status: SSL Error
-notes: Data from WayBack Downloader, some missing schedule info
 pyvideo: https://pyvideo.org/events/pycon-au-2017.html
 pyvideo_count: 84
+notes: schedule complete, but most talk info missing
 repo: pyconau/2017-archive
 repo_homepage: https://pyconau-2017.glasnt.com
 repo_homepage_screenshot: screenshots/2017_repo.png

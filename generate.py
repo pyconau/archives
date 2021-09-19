@@ -127,6 +127,7 @@ def generate_readme():
         readme += f.readlines()
 
     data = []
+    notes = []
     for datafile in sorted(Path("_data").glob("*.yml")):
         with open(str(datafile)) as f:
             info = yaml.load(f, Loader=yaml.SafeLoader)
@@ -159,9 +160,17 @@ def generate_readme():
             else:
                 year["pyvideo"] = INFO_MISSING
 
+            if valid("notes", d=info):
+               notes.append(f"* {info['yearnum']}: {info['notes']}") 
             data.append(year)
 
     readme.append(Tomark.table(data))
+
+    # Append notes (if applicable)
+    if notes:
+        readme.append("\n### Notes\n")
+        readme.append("\n".join(notes))
+        readme.append("\n")
 
     # Append screenshots
     readme.append("## Screenshots")

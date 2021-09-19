@@ -1,6 +1,5 @@
 canonical_url: 2021.pycon.org.au
 canonical_url_status: '200'
-notes: Consider removing netlify and using pure github pages for hosting.
 pyvideo: https://pyvideo.org/events/pycon-au-2021.html
 pyvideo_count: 54
 repo: pyconau/2021-website
