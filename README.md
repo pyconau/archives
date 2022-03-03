@@ -2,7 +2,7 @@
 
 
 
-The goal of this project is to archive the past PyCon AU websites. 
+The goal of this project is to archive the past PyCon AU websites. [See project activity board](https://github.com/pyconau/archives/projects/1).
 
 
 
