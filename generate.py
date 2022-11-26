@@ -28,7 +28,7 @@ data = []
 
 
 def valid(s, d={}):
-    return True if s in d.keys() and d[s] is not None else False
+    return True if s in d.keys() and d[s] is not None and d[s] != "None" else False
 
 
 def get_status_code(uri):
@@ -44,6 +44,8 @@ def get_status_code(uri):
         except requests.exceptions.SSLError:
             return "SSL Error"
 
+    if response.status_code == 200: 
+        return "✅"
     return response.status_code
 
 
@@ -95,6 +97,7 @@ def refresh(refresh_screenshots=False):
         if "repo" in info.keys() and info["repo"] is not None:
             repo = info["repo"]
             response = get_url(f"https://api.github.com/repos/{repo}", json=True)
+            print(response.get("homepage", "error"))
             if "homepage" in response.keys():
                 homepage = response["homepage"]
                 info["repo_homepage"] = homepage
@@ -133,19 +136,21 @@ def generate_readme():
             info = yaml.load(f, Loader=yaml.SafeLoader)
             year = {
                 "year": info["yearnum"],
-                "url": info["canonical_url"],
+                "url": f"[{info['canonical_url']}](https://{info['canonical_url']})",
                 "status": info["canonical_url_status"],
                 "wayback": f"[wayback]({info['wayback']})",
-                "webarchive": INFO_MISSING,
             }
             if valid("repo", d=info):
                 year[
                     "repo"
-                ] = f"[{info['repo']}](https://github.com/{info['repo']}) ([url]({info['repo_homepage']})) {info['repo_homepage_status']} "
+                ] = f"[{info['repo']}](https://github.com/{info['repo']}) {info['repo_homepage_status']} "
             else:
                 year["repo"] = INFO_MISSING
 
-            if valid("youtube", d=info):
+            
+            if "youtube" in info.keys() and info["youtube"] == "None":
+                year["youtube"] = "N/A"
+            elif valid("youtube", d=info):
                 counter = 1
                 year["youtube"] = []
                 for item in info["youtube"]:
@@ -156,12 +161,12 @@ def generate_readme():
             else:
                 year["youtube"] = INFO_MISSING
 
-            if valid("pyvideo", d=info) and valid("pyvideo_count", d=info):
+            if "pyvideo" in info.keys() and info['pyvideo'] == "None":
+                year["pyvideo"] = "N/A"
+            elif valid("pyvideo", d=info) and valid("pyvideo_count", d=info):
                 year["pyvideo"] = f"[{info['pyvideo_count']} entries]({info['pyvideo']})"
             else:
                 year["pyvideo"] = INFO_MISSING
-            if valid("webarchive", d=info):
-                year["webarchive"] = f"[{info['webarchive_count']} entries]({info['webarchive']})"
 
 
             if valid("notes", d=info):
@@ -226,7 +231,6 @@ def cli(refresh_data, refresh_screenshots):
     if refresh_data:
         refresh(refresh_screenshots)
     generate_readme()
-    print(f"Generated README.md in {datetime.now() - script_start}")
 
 
 if __name__ == "__main__":

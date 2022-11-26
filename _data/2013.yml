@@ -1,12 +1,12 @@
 canonical_url: 2013.pycon-au.org
-canonical_url_status: Timeout
+canonical_url_status: "\u2705"
 notes: some sponsor logos missing
 pyvideo: https://pyvideo.org/events/pycon-au-2013.html
 pyvideo_count: 45
 repo: pyconau/2013-archive
-repo_homepage: https://pyconau-2013.glasnt.com
+repo_homepage: https://2013.pycon-au.org
 repo_homepage_screenshot: screenshots/2013_repo.png
-repo_homepage_status: "\U0001F6A7"
+repo_homepage_status: "\u2705"
 wayback: https://web.archive.org/web/20150307051807/http://2013.pycon-au.org/
 wayback_screenshot: screenshots/2013_wayback.png
 yearnum: '2013'

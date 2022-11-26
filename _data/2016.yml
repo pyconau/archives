@@ -1,12 +1,12 @@
 canonical_url: 2016.pycon-au.org
-canonical_url_status: SSL Error
-notes: missing saturday/sunday schedule and talks
+canonical_url_status: "\u2705"
+notes: Missing Saturday and Sunday data
 pyvideo: https://pyvideo.org/events/pycon-au-2016.html
 pyvideo_count: 81
 repo: pyconau/2016-archive
-repo_homepage: https://pyconau-2016.glasnt.com
+repo_homepage: https://2016.pycon-au.org
 repo_homepage_screenshot: screenshots/2016_repo.png
-repo_homepage_status: "\U0001F6A7"
+repo_homepage_status: "\u2705"
 wayback: https://web.archive.org/web/20200619053145/https://2016.pycon-au.org/
 wayback_screenshot: screenshots/2016_wayback.png
 yearnum: '2016'
