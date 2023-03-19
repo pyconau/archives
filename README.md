@@ -30,10 +30,16 @@ The goal of this project is to archive the past PyCon AU websites.
 
 ### Notes
 
-* 2013: some sponsor logos missing
-* 2014: Missing Friday data
-* 2016: Missing Saturday and Sunday data
-* 2017: Missing talk data
+* 2013
+  * Abstract from Alex Gaynor Keynote lost
+  * some sponsor logos missing
+* 2014
+  * Missing Friday data
+* 2016
+  * Missing Saturday and Sunday data
+* 2017
+  * Missing talk data
+  * Specialist track information lost (/program/specialist-tracks/)
 
 
 ## Screenshots

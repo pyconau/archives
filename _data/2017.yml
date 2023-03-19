@@ -1,6 +1,8 @@
 canonical_url: 2017.pycon-au.org
 canonical_url_status: "\u2705"
-notes: Missing talk data
+notes: 'Missing talk data
+
+  Specialist track information lost (/program/specialist-tracks/)'
 pyvideo: https://pyvideo.org/events/pycon-au-2017.html
 pyvideo_count: 84
 repo: pyconau/2017-archive

@@ -32,4 +32,4 @@ There are many ways to do this, but this way is taken from the DjangoCon archive
 npm install -g pageres-cli
 ```
 
-Screenshots are updated in `generate.py` if `GENERATE_SCREENSHOTS` is a set environment variable.
+Screenshots are updated in `generate.py` if `--refresh` is a parameter.

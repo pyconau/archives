@@ -15,7 +15,6 @@ from tomark import Tomark
 
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", None)
-SCREENSHOTS = os.environ.get("GENERATE_SCREENSHOTS", None)
 
 UNDER_CONSTRUCTION = "🚧"
 OKAY = "✅"
@@ -59,18 +58,17 @@ def imagetag(filename, alt):
     return f"<img src='{filename}' alt='{alt}' width='400' />"
 
 
-def capture_screenshot(url, filename, folder="screenshots", refresh=False):
-    if refresh:
-        subprocess.run(
-            f"pageres {url} 800x600 --overwrite --crop --filename='{filename}'",
-            cwd=folder,
-            shell=True,
-            capture_output=True,
-        )
+def capture_screenshot(url, filename, folder="screenshots"):
+    subprocess.run(
+        f"pageres {url} 800x600 --overwrite --crop --filename='{filename}'",
+        cwd=folder,
+        shell=True,
+        capture_output=True,
+    )
     return f"{folder}/{filename}.png"
 
 
-def refresh(refresh_screenshots=False):
+def refresh_data():
 
     # Process Data
     for datafile in sorted(Path("_data").glob("*.yml")):
@@ -87,7 +85,7 @@ def refresh(refresh_screenshots=False):
 
         if valid("wayback", d=info):
             info["wayback_screenshot"] = capture_screenshot(
-                info["wayback"], f"{year}_wayback", refresh=refresh_screenshots
+                info["wayback"], f"{year}_wayback"
             )
         else:
             info["wayback_screenshot"] = SCREENSHOT_MISSING
@@ -106,7 +104,7 @@ def refresh(refresh_screenshots=False):
                 if urlparse(homepage).hostname == info["canonical_url"]:
                     info["repo_homepage_status"] = OKAY
                 info["repo_homepage_screenshot"] = capture_screenshot(
-                    homepage, f"{year}_repo", refresh=refresh_screenshots
+                    homepage, f"{year}_repo"
                 )
 
         if valid("pyvideo", d=info):
@@ -170,7 +168,8 @@ def generate_readme():
 
 
             if valid("notes", d=info):
-               notes.append(f"* {info['yearnum']}: {info['notes']}") 
+               notes.append(f"* {info['yearnum']}")
+               notes += [f"  * {note}" for note in info['notes'].split("\n") if note.strip() != ""]
 
             data.append(year)
 
@@ -213,23 +212,15 @@ import click
 
 @click.command()
 @click.option(
-    "--refresh-data",
+    "--refresh",
     type=bool,
     count=True,
     default=False,
     help="regenerate dynamic data",
 )
-@click.option(
-    "--refresh-screenshots",
-    type=bool,
-    count=True,
-    default=False,
-    help="regenerate dynamic data",
-)
-def cli(refresh_data, refresh_screenshots):
-    script_start = datetime.now()
-    if refresh_data:
-        refresh(refresh_screenshots)
+def cli(refresh):
+    if refresh:
+        refresh_data()
     generate_readme()
 
 
