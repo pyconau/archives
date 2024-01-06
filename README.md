@@ -38,9 +38,11 @@ The goal of this project is to archive the past PyCon AU websites.
 * 2016
   * Missing Saturday and Sunday data
   * Many missing talk abstracts
+  * Sprints missing
+    * no web archive listing. Copy from 2017? 
 * 2017
-  * Missing talk data
-  * Specialist track information lost (/program/specialist-tracks/)
+  * Many missing talk data
+  * Specialist track information lost (/program/specialist-tracks/ subpages)
 
 
 ## Screenshots
