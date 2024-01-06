@@ -34,6 +34,7 @@ The goal of this project is to archive the past PyCon AU websites.
   * 8 sponsor logos missing
 * 2014
   * Missing Friday data
+  * Missing Workshops
 * 2016
   * Missing Saturday and Sunday data
 * 2017
