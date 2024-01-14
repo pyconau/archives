@@ -33,8 +33,7 @@ The goal of this project is to archive the past PyCon AU websites.
 * 2013
   * 8 sponsor logos missing
 * 2014
-  * Missing Friday abstracts
-    * [DjangoCon](https://2014.djangocon.com.au/) and [OpenStack](https://web.archive.org/web/20141025143831/http://sites.rcbops.com/openstack_miniconf/2014/07/openstack-miniconf-programme-for-pycon-au/#openstack_identity_and_federation) have separate sites with abstracts, DataSci not found.  
+  * (reconstructed) Missing Friday abstracts
 * 2016
   * (reconstructed) Missing Saturday and Sunday schedule 
   * (copied from 2017) Sprints missing
